@@ -6,6 +6,7 @@ import Logo from '../Layout/Logo';
 import GameBoard, { Card } from '../GameBoard';
 import Status from '../Status';
 import Loading from '../Loading';
+import Scoreboard from '../Scoreboard';
 
 /* 
 Levels:
@@ -26,9 +27,9 @@ export default function App() {
   // TODO incriment to the next lvl
   const [lvl, setLvl] = useState({ cardsCount: 3 });
   // TODO incriment score on player's new memorized card +1!
-  // const [score, setScore] = useState(0);
+  const [score, setScore] = useState(0);
   // TODO change when score > bestScore
-  // const [bestScore, setBestScore] = useState(0);
+  const [bestScore, setBestScore] = useState(0);
 
   // onMount
   useEffect(async () => {
@@ -46,6 +47,7 @@ export default function App() {
       <Header>
         <Logo src={logoSrc} />
         <h1>PokeMemory!</h1>
+        <Scoreboard score={score} bestScore={bestScore} />
       </Header>
       {!appLoaded && <Loading text='Loading..' />}
       <Main>

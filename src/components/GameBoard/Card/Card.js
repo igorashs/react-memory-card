@@ -29,6 +29,7 @@ const StyledCard = styled.div`
   h3 {
     font-size: 24px;
     padding: 0 5px;
+    user-select: none;
   }
 `;
 
@@ -43,7 +44,7 @@ export default function Card({ card, alt = card.name, onCardClick }) {
 
   return (
     <StyledCard onClick={() => onCardClick(id)}>
-      <img src={src} alt={alt} />
+      <img src={src} alt={alt} draggable='false' />
       <Divider />
       <h3>{name}</h3>
     </StyledCard>
