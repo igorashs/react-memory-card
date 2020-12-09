@@ -38,12 +38,14 @@ const Divider = styled.div`
   height: 1px;
 `;
 
-export default function Card({ title, imgSrc, imgAlt = title }) {
+export default function Card({ card, alt = card.name, onCardClick }) {
+  const { name, src, id } = card;
+
   return (
-    <StyledCard>
-      <img src={imgSrc} alt={imgAlt} />
+    <StyledCard onClick={() => onCardClick(id)}>
+      <img src={src} alt={alt} />
       <Divider />
-      <h3>{title}</h3>
+      <h3>{name}</h3>
     </StyledCard>
   );
 }

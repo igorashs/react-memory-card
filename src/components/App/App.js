@@ -37,6 +37,10 @@ export default function App() {
     setAppLoaded(true);
   }, []);
 
+  const handleCardClick = (id) => {
+    console.log(id);
+  };
+
   return (
     <Layout>
       <Header>
@@ -49,7 +53,7 @@ export default function App() {
         <GameBoard>
           {cards
             ? cards.map((card) => (
-                <Card key={card.id} title={card.name} imgSrc={card.src} />
+                <Card key={card.id} card={card} onCardClick={handleCardClick} />
               ))
             : appLoaded && <Loading text='Loading next Lvl!' />}
         </GameBoard>
