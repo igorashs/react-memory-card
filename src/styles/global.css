@@ -49,6 +49,10 @@ a:not([class]) {
   text-decoration-skip-ink: auto;
 }
 
+a {
+  color: inherit;
+}
+
 /* Make images easier to work with */
 img {
   max-width: 100%;
@@ -64,5 +68,8 @@ select {
 }
 
 :root {
-  --bg-color: #282c34;
+  --primary: rgb(40 44 52);
+  --secondary: rgb(62 68 81);
+  --complimentary: rgb(52 48 40);
+  --primary-text: rgb(234 234 234);
 }
