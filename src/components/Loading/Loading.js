@@ -41,6 +41,7 @@ const Modal = styled.div`
   }
 
   p {
+    align-text: center;
     font-size: 30px;
     animation: ${pulse} 500ms alternate infinite;
   }

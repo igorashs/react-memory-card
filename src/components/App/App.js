@@ -7,39 +7,83 @@ import GameBoard, { Card } from '../GameBoard';
 import Status from '../Status';
 import Loading from '../Loading';
 import Scoreboard from '../Scoreboard';
-
-/* 
-Levels:
-lvl_1: 5 Cards 
-lvl_2: 7 Cards
-lvl_3: 10 Cards
-lvl_4: 12 Cards
-...
-lvl_*: 12 Cards
-*/
+import GameOver from '../GameOver';
 
 export default function App() {
   const [appLoaded, setAppLoaded] = useState(false);
-  // TODO set to [] after each lvl, or when game over (same card!), Cards counts per level!
-  // const [knownCards, setKnownCards] = useState([]);
-  // TODO set to new cards after each lvl when knwonCards == cards
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [knownCards, setKnownCards] = useState([]);
   const [cards, setCards] = useState();
-  // TODO incriment to the next lvl
-  const [lvl, setLvl] = useState({ cardsCount: 3 });
-  // TODO incriment score on player's new memorized card +1!
+  const [lvl, setLvl] = useState({ cardsCount: 4, nr: 1 });
   const [score, setScore] = useState(0);
-  // TODO change when score > bestScore
   const [bestScore, setBestScore] = useState(0);
 
-  // onMount
+  // get cards on new lvl
   useEffect(async () => {
     const newCards = await CardsCollection.getCardsBriefInfo(lvl.cardsCount);
     setCards(newCards);
-    setAppLoaded(true);
-  }, []);
+
+    // first app load
+    if (!appLoaded) {
+      setAppLoaded(true);
+    }
+  }, [lvl]);
+
+  //check player progress for next lvl
+  useEffect(() => {
+    if (knownCards.length && knownCards.length === lvl.cardsCount) {
+      setLvl((prevLvl) => {
+        let cardsCount = prevLvl.cardsCount < 12 ? prevLvl.cardsCount + 2 : 12;
+        let nr = prevLvl.nr + 1;
+
+        return { cardsCount, nr };
+      });
+
+      setKnownCards([]);
+      setCards(null);
+    }
+  }, [knownCards]);
 
   const handleCardClick = (id) => {
-    console.log(id);
+    const foundSameCard = knownCards.find((cardId) => cardId === id)
+      ? true
+      : false;
+
+    // player has memorized
+    if (!foundSameCard) {
+      setKnownCards((prevKnownCards) => {
+        let knownCards = [...prevKnownCards];
+        knownCards.push(id);
+
+        return knownCards;
+      });
+
+      setCards((prevCards) => CardsCollection.shuffleCards(prevCards));
+
+      // update score
+      setScore((prevScore) => {
+        const score = prevScore + 1;
+
+        if (score > bestScore) {
+          setBestScore(score);
+        }
+
+        return score;
+      });
+    }
+
+    // game over
+    if (foundSameCard) {
+      setIsGameOver(true);
+    }
+  };
+
+  const handleNewGameClick = () => {
+    setIsGameOver(false);
+    setKnownCards([]);
+    setScore(0);
+    setCards(null);
+    setLvl({ cardsCount: 4, nr: 1 });
   };
 
   return (
@@ -50,14 +94,17 @@ export default function App() {
         <Scoreboard score={score} bestScore={bestScore} />
       </Header>
       {!appLoaded && <Loading text='Loading..' />}
+      {isGameOver && (
+        <GameOver score={score} onNewGameClick={handleNewGameClick} />
+      )}
       <Main>
-        <Status text='Choose your next Pokemon!' />
+        <Status text={`Choose your next Pokemon! Lvl ${lvl.nr}`} />
         <GameBoard>
           {cards
             ? cards.map((card) => (
                 <Card key={card.id} card={card} onCardClick={handleCardClick} />
               ))
-            : appLoaded && <Loading text='Loading next Lvl!' />}
+            : appLoaded && <Loading text={`Loading Lvl ${lvl.nr}`} />}
         </GameBoard>
       </Main>
     </Layout>

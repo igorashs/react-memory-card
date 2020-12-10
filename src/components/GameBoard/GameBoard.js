@@ -4,6 +4,7 @@ const StyledBoard = styled.div`
   display: flex;
   flex: 1 1 auto;
   position: relative;
+  width: 100%;
   align-items: flex-start;
   justify-content: center;
   flex-wrap: wrap;
