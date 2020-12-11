@@ -12,13 +12,17 @@ const Score = styled.p`
   color: rgb(188 255 152);
   padding: 5px;
   font-size: 24px;
+
+  @media (max-width: 480px) {
+    font-size: 20px;
+  }
 `;
 
 const BestScore = styled(Score)`
   color: rgb(255 152 152);
 `;
 
-const Devider = styled.div`
+const Divider = styled.div`
   height: 24px;
   width: 1px;
   background-color: white;
@@ -29,7 +33,7 @@ export default function Scoreboard({ score, bestScore }) {
   return (
     <StyledBoard>
       <Score>Score: {score}</Score>
-      <Devider />
+      <Divider />
       <BestScore>Best: {bestScore}</BestScore>
     </StyledBoard>
   );

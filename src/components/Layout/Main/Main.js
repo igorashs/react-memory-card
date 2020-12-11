@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const StyledMain = styled.main`
   flex: 1 1 auto;
+  position: relative;
   display: flex;
   align-items: center;
   flex-direction: column;

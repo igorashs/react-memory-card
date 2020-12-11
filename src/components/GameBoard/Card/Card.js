@@ -5,14 +5,10 @@ const DURATION = 400;
 
 const appear = keyframes`
   0% {
-    opacity: 0;
     transform: scale(0);
-    filter: blur(20px);
   }
 
   100% {
-    opacity: 1;
-    filter: blur(0);
     transform: scale(1);
   }
 `;

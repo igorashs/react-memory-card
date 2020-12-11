@@ -22,6 +22,16 @@ const Modal = styled.div`
     font-size: 44px;
   }
 
+  @media (max-width: 480px) {
+    p {
+      font-size: 20px;
+    }
+
+    h2 {
+      font-size: 28px;
+    }
+  }
+
   z-index: 2021;
 `;
 
@@ -36,6 +46,10 @@ const Button = styled.button`
 
   :hover {
     background-color: rgb(70 77 90);
+  }
+
+  @media (max-width: 480px) {
+    font-size; 18px;
   }
 `;
 

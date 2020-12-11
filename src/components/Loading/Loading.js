@@ -36,15 +36,26 @@ const Modal = styled.div`
 
   img {
     animation: ${spin} 500ms linear infinite;
-    min-width: 135px;
-    min-height: 135px;
+    width: 100px;
   }
 
   p {
     align-text: center;
-    font-size: 30px;
+    font-size: 28px;
     animation: ${pulse} 500ms alternate infinite;
   }
+
+  @media (max-width: 480px) {
+    img {
+      width: 60px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+  }
+
+  z-index: 2021;
 `;
 
 export default function Loading({ text }) {

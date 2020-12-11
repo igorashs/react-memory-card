@@ -10,6 +10,12 @@ const StyledHeader = styled.header`
   background-color: var(--secondary);
   border-bottom: 3px solid var(--complimentary);
   box-shadow: inset 0px 5px 6px var(--primary);
+
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 28px;
+    }
+  }
 `;
 
 export default function Header(props) {
