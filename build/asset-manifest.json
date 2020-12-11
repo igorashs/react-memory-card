@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "./static/css/main.d8ed61aa.chunk.css",
+    "main.js": "./static/js/main.3be8cc1d.chunk.js",
+    "main.js.map": "./static/js/main.3be8cc1d.chunk.js.map",
+    "runtime-main.js": "./static/js/runtime-main.54e68b5c.js",
+    "runtime-main.js.map": "./static/js/runtime-main.54e68b5c.js.map",
+    "static/js/2.4a05538f.chunk.js": "./static/js/2.4a05538f.chunk.js",
+    "static/js/2.4a05538f.chunk.js.map": "./static/js/2.4a05538f.chunk.js.map",
+    "index.html": "./index.html",
+    "static/css/main.d8ed61aa.chunk.css.map": "./static/css/main.d8ed61aa.chunk.css.map",
+    "static/js/2.4a05538f.chunk.js.LICENSE.txt": "./static/js/2.4a05538f.chunk.js.LICENSE.txt",
+    "static/media/eevee-logo.d4558f95.png": "./static/media/eevee-logo.d4558f95.png",
+    "static/media/pikaSpinner.20e5d35b.svg": "./static/media/pikaSpinner.20e5d35b.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.54e68b5c.js",
+    "static/js/2.4a05538f.chunk.js",
+    "static/css/main.d8ed61aa.chunk.css",
+    "static/js/main.3be8cc1d.chunk.js"
+  ]
+}
