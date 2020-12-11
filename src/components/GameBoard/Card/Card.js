@@ -1,11 +1,28 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
+import { useState, useEffect } from 'react';
+
+const DURATION = 400;
+
+const appear = keyframes`
+  0% {
+    opacity: 0;
+    transform: scale(0);
+    filter: blur(20px);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+`;
 
 const StyledCard = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 5px;
-  min-width: 200px;
+  min-width: 60px;
   position: relative;
 
   border-radius: 5px;
@@ -17,9 +34,11 @@ const StyledCard = styled.div`
   overflow: hidden;
   cursor: pointer;
 
-  &:hover {
-    transform: scale(1.1);
-  }
+  ${({ animation }) =>
+    animation &&
+    css`
+      animation: ${appear} ${DURATION}ms 1;
+    `}
 
   img {
     width: 200px;
@@ -31,6 +50,41 @@ const StyledCard = styled.div`
     padding: 0 5px;
     user-select: none;
   }
+
+  @media (min-width: 975px) {
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  @media (max-width: 975px) {
+    img {
+      width: 160px;
+      height: 160px;
+    }
+  }
+
+  @media (max-width: 575px) {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+
+    h3 {
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+  }
 `;
 
 const Divider = styled.div`
@@ -39,11 +93,25 @@ const Divider = styled.div`
   height: 1px;
 `;
 
-export default function Card({ card, alt = card.name, onCardClick }) {
+export default function Card(props) {
+  const [toAnimate, setToAnimate] = useState();
+
+  const { card, alt = card.name, onCardClick, triggerAnimation } = props;
   const { name, src, id } = card;
 
+  useEffect(() => {
+    setToAnimate(true);
+    const timeout = setTimeout(() => {
+      setToAnimate(false);
+    }, DURATION);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [triggerAnimation]);
+
   return (
-    <StyledCard onClick={() => onCardClick(id)}>
+    <StyledCard onClick={() => onCardClick(id)} animation={toAnimate}>
       <img src={src} alt={alt} draggable='false' />
       <Divider />
       <h3>{name}</h3>

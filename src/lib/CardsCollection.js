@@ -43,6 +43,24 @@ const fetchCardsImgs = (cards) =>
     )
   );
 
+// get random number from 0 to max not included
+const getRandomIndex = (max) => Math.floor(Math.random() * max);
+
+// shuffle the cards;
+const shuffleCards = (prevCards) => {
+  let cards = [...prevCards];
+  const length = cards.length;
+  let shuffled = [];
+  let r;
+
+  for (let i = 0; i < length; i += 1) {
+    r = getRandomIndex(cards.length);
+    shuffled = [...shuffled, ...cards.splice(r, 1)];
+  }
+
+  return shuffled;
+};
+
 // fetch a specific amount of cards
 const getCards = (quantity) => {
   const [start, end] = getRandomizedInterval(
@@ -67,24 +85,7 @@ const getCardsBriefInfo = async (quantity) => {
   }));
 
   await fetchCardsImgs(brief);
-
-  return brief;
-};
-
-// get random number from 0 to max not included
-const getRandomIndex = (max) => Math.floor(Math.random() * max);
-
-// shuffle the cards;
-const shuffleCards = (prevCards) => {
-  let cards = [...prevCards];
-  const length = cards.length;
-  let shuffled = [];
-  let r;
-
-  for (let i = 0; i < length; i += 1) {
-    r = getRandomIndex(cards.length);
-    shuffled = [...shuffled, ...cards.splice(r, 1)];
-  }
+  const shuffled = shuffleCards(brief);
 
   return shuffled;
 };

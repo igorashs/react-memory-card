@@ -12,6 +12,7 @@ import GameOver from '../GameOver';
 export default function App() {
   const [appLoaded, setAppLoaded] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [triggerAnimation, setTriggerAnimation] = useState();
   const [knownCards, setKnownCards] = useState([]);
   const [cards, setCards] = useState();
   const [lvl, setLvl] = useState({ cardsCount: 4, nr: 1 });
@@ -58,6 +59,7 @@ export default function App() {
         return knownCards;
       });
 
+      setTriggerAnimation((prev) => !prev);
       setCards((prevCards) => CardsCollection.shuffleCards(prevCards));
 
       // update score
@@ -102,7 +104,12 @@ export default function App() {
         <GameBoard>
           {cards
             ? cards.map((card) => (
-                <Card key={card.id} card={card} onCardClick={handleCardClick} />
+                <Card
+                  key={card.id}
+                  card={card}
+                  onCardClick={handleCardClick}
+                  triggerAnimation={triggerAnimation}
+                />
               ))
             : appLoaded && <Loading text={`Loading Lvl ${lvl.nr}`} />}
         </GameBoard>
