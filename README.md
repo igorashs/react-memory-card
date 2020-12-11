@@ -2,7 +2,7 @@
 
 > ## From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/memory-card)
 
-> - [Live Demo]() **SOON** :shipit:
+> - [Live Demo](https://igorashs.github.io/react-memory-card/) **SOON** :shipit:
 
 ## Getting Started
 
@@ -20,3 +20,7 @@ npm run start
 - [React](https://reactjs.org/)
 - [styled-components](https://styled-components.com/)
 - [pokeapi-js-wrapper](https://github.com/PokeAPI/pokeapi-js-wrapper)
+
+## License
+
+This project is licensed under the MIT License
