@@ -2,7 +2,7 @@
 
 > ## From The Odin Project's [curriculum](https://www.theodinproject.com/lessons/memory-card)
 
-> - [Live Demo](https://igorashs.github.io/react-memory-card/) **SOON** :shipit:
+> - [Live Demo](https://igorashs.github.io/react-memory-card/) :shipit:
 
 ## Getting Started
 
