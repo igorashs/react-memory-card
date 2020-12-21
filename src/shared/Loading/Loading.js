@@ -24,23 +24,23 @@ const pulse = keyframes`
 
 const LoadingModal = styled(Modal)`
   img {
+    width: 60px;
     animation: ${spin} 500ms linear infinite;
-    width: 100px;
   }
 
   p {
+    font-size: 20px;
     text-align: center;
-    font-size: 28px;
     animation: ${pulse} 500ms alternate infinite;
   }
 
-  @media (max-width: 480px) {
+  @media (min-width: 576px) {
     img {
-      width: 60px;
+      width: 100px;
     }
 
     p {
-      font-size: 20px;
+      font-size: 28px;
     }
   }
 

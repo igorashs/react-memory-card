@@ -47,38 +47,34 @@ const StyledCard = styled.div`
     user-select: none;
   }
 
-  @media (min-width: 975px) {
-    &:hover {
-      transform: scale(1.1);
-    }
+  img {
+    width: 100px;
+    height: 100px;
   }
 
-  @media (max-width: 975px) {
-    img {
-      width: 160px;
-      height: 160px;
-    }
+  h3 {
+    font-size: 16px;
   }
 
-  @media (max-width: 575px) {
+  @media (min-width: 992px) {
     img {
-      width: 100px;
-      height: 100px;
+      min-width: 160px;
+      min-height: 160px;
     }
 
     h3 {
       font-size: 20px;
     }
+
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
-  @media (max-width: 480px) {
+  @media (min-width: 576px) {
     img {
-      width: 60px;
-      height: 60px;
-    }
-
-    h3 {
-      font-size: 16px;
+      width: 120px;
+      height: 120px;
     }
   }
 `;

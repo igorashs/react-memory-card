@@ -11,10 +11,10 @@ const StyledBoard = styled.div`
 const Score = styled.p`
   color: rgb(188 255 152);
   padding: 5px;
-  font-size: 24px;
+  font-size: 20px;
 
-  @media (max-width: 480px) {
-    font-size: 20px;
+  @media (min-width: 576px) {
+    font-size: 24px;
   }
 `;
 

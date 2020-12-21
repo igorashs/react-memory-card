@@ -4,9 +4,10 @@ const Text = styled.h2`
   margin-top: 1rem;
   text-decoration: underline;
   text-align: center;
+  font-size: 20px;
 
-  @media (max-width: 480px) {
-    font-size: 18px;
+  @media (min-width: 576px) {
+    font-size: 24px;
   }
 `;
 

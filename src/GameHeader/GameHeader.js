@@ -10,10 +10,8 @@ const StyledHeader = styled.header`
   min-height: 60px;
   background-color: var(--primary);
 
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 28px;
-    }
+  h1 {
+    font-size: 28px;
   }
 `;
 

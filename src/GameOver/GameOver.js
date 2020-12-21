@@ -3,21 +3,21 @@ import { Modal } from '../shared/Layout';
 
 const GameOverModal = styled(Modal)`
   p {
+    font-size: 20px;
     text-align: center;
-    font-size: 30px;
   }
 
   h2 {
-    font-size: 44px;
+    font-size: 28px;
   }
 
-  @media (max-width: 480px) {
+  @media (min-width: 576px) {
     p {
-      font-size: 20px;
+      font-size: 30px;
     }
 
     h2 {
-      font-size: 28px;
+      font-size: 44px;
     }
   }
 
@@ -28,17 +28,17 @@ const Button = styled.button`
   margin-top: 20px;
   color: var(--primary-text);
   background-color: var(--secondary);
-  font-size: 24px;
   padding: 5px 12px;
+  font-size: 18px;
   border: 0;
-  cursor: pointer;
+  border-radius: 4px;
 
   :hover {
     background-color: rgb(70 77 90);
   }
 
-  @media (max-width: 480px) {
-    font-size: 18px;
+  @media (min-width: 576px) {
+    font-size: 24px;
   }
 `;
 
