@@ -5,58 +5,41 @@ import { GameBoard } from './GameBoard';
 import { Loading } from './shared/Loading';
 import { GameOver } from './GameOver';
 import { Status } from './shared/Status';
-import { useScore } from './hooks/useScore';
-import CardsCollection from './lib/CardsCollection';
+import { useScore, useLvl, useCards, useKnownCards } from './hooks';
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [knownCards, setKnownCards] = useState([]);
-  const [cards, setCards] = useState(null);
-  const [lvl, setLvl] = useState({ cardsCount: 4, nr: 1 });
+  const [
+    hasCardWithId,
+    addCardWithId,
+    knowsAllCards,
+    resetKnownCards
+  ] = useKnownCards();
+  const [cards, shuffleCards, updateCards] = useCards();
+  const [lvl, nextLvl, resetLvl] = useLvl();
   const [score, bestScore, updateScore, resetScore] = useScore();
 
   // get cards on new lvl
   useEffect(async () => {
-    const newCards = await CardsCollection.getCardsBriefInfo(lvl.cardsCount);
-    setCards(newCards);
+    await updateCards(lvl.cardsCount);
     setIsLoading(false);
   }, [lvl]);
 
-  //check player progress for next lvl
-  useEffect(() => {
-    if (knownCards.length && knownCards.length === lvl.cardsCount) {
-      setLvl((prevLvl) => {
-        let cardsCount = prevLvl.cardsCount < 12 ? prevLvl.cardsCount + 2 : 12;
-        let nr = prevLvl.nr + 1;
-
-        return { cardsCount, nr };
-      });
-
-      setKnownCards([]);
-      setCards(null);
-      setIsLoading(true);
-    }
-  }, [knownCards]);
-
   const handleCardClick = (id) => {
-    const foundSameCard = knownCards.find((cardId) => cardId === id)
-      ? true
-      : false;
-
     // player has memorized
-    if (!foundSameCard) {
-      setKnownCards((prevKnownCards) => {
-        let knownCards = [...prevKnownCards];
-        knownCards.push(id);
-
-        return knownCards;
-      });
-
-      setCards((prevCards) => CardsCollection.shuffleCards(prevCards));
-
-      // update score
+    if (!hasCardWithId(id)) {
+      addCardWithId(id);
       updateScore(1);
+
+      //check player progress for next lvl
+      if (knowsAllCards(lvl.cardsCount)) {
+        resetKnownCards();
+        setIsLoading(true);
+        nextLvl();
+      } else {
+        shuffleCards();
+      }
     } else {
       setIsGameOver(true);
     }
@@ -65,10 +48,9 @@ export default function App() {
   const handleNewGameClick = () => {
     setIsGameOver(false);
     setIsLoading(true);
-    setKnownCards([]);
+    resetKnownCards();
     resetScore();
-    setCards(null);
-    setLvl({ cardsCount: 4, nr: 1 });
+    resetLvl();
   };
 
   return (
