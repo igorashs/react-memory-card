@@ -4,13 +4,14 @@ import { GameHeader } from './GameHeader';
 import { GameBoard } from './GameBoard';
 import { Loading } from './shared/Loading';
 import { GameOver } from './GameOver';
+import { Status } from './shared/Status';
 import CardsCollection from './lib/CardsCollection';
 
 export default function App() {
-  const [appLoaded, setAppLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [isGameOver, setIsGameOver] = useState(false);
   const [knownCards, setKnownCards] = useState([]);
-  const [cards, setCards] = useState();
+  const [cards, setCards] = useState(null);
   const [lvl, setLvl] = useState({ cardsCount: 4, nr: 1 });
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useState(0);
@@ -19,11 +20,7 @@ export default function App() {
   useEffect(async () => {
     const newCards = await CardsCollection.getCardsBriefInfo(lvl.cardsCount);
     setCards(newCards);
-
-    // first app load
-    if (!appLoaded) {
-      setAppLoaded(true);
-    }
+    setIsLoading(false);
   }, [lvl]);
 
   //check player progress for next lvl
@@ -38,6 +35,7 @@ export default function App() {
 
       setKnownCards([]);
       setCards(null);
+      setIsLoading(true);
     }
   }, [knownCards]);
 
@@ -77,6 +75,7 @@ export default function App() {
 
   const handleNewGameClick = () => {
     setIsGameOver(false);
+    setIsLoading(true);
     setKnownCards([]);
     setScore(0);
     setCards(null);
@@ -85,18 +84,15 @@ export default function App() {
 
   return (
     <Wrapper>
-      {!appLoaded && <Loading text='Loading..' />}
-      {isGameOver && (
-        <GameOver score={score} onNewGameClick={handleNewGameClick} />
-      )}
-
-      <GameHeader score={score} bestScore={bestScore} />
-      <GameBoard
-        cards={cards}
-        onCardClick={handleCardClick}
-        lvl={lvl}
-        appLoaded={appLoaded}
+      <Loading text={`Loading Lvl ${lvl.nr}`} show={isLoading} />
+      <GameOver
+        score={score}
+        onNewGameClick={handleNewGameClick}
+        show={isGameOver}
       />
+      <GameHeader score={score} bestScore={bestScore} />
+      <Status text={`Choose your next Pokemon! Lvl ${lvl.nr}`} />
+      <GameBoard cards={cards} onCardClick={handleCardClick} />
     </Wrapper>
   );
 }

@@ -42,12 +42,14 @@ const Button = styled.button`
   }
 `;
 
-export function GameOver({ score, onNewGameClick }) {
+export function GameOver({ score, onNewGameClick, show }) {
   return (
-    <GameOverModal>
-      <h2>Game Over!</h2>
-      <p>Congratulations your Score is {score}</p>
-      <Button onClick={onNewGameClick}>New Game</Button>
-    </GameOverModal>
+    show && (
+      <GameOverModal>
+        <h2>Game Over!</h2>
+        <p>Congratulations your Score is {score}</p>
+        <Button onClick={onNewGameClick}>New Game</Button>
+      </GameOverModal>
+    )
   );
 }

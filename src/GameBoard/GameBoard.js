@@ -1,18 +1,6 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { Card } from './Card';
-import { Status } from './Status';
-import { Loading } from '../shared/Loading';
-
-const StyledBoard = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: flex-start;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 10px;
-  padding: 5px;
-`;
 
 const StyledMain = styled.main`
   flex: 1 1 auto;
@@ -20,10 +8,18 @@ const StyledMain = styled.main`
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding: 10px;
 `;
 
-export function GameBoard({ cards, onCardClick, lvl, appLoaded }) {
+const StyledBoard = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1rem;
+`;
+
+export function GameBoard({ cards, onCardClick }) {
   const [animate, setAnimate] = useState();
 
   useEffect(() => {}, [animate]);
@@ -35,18 +31,16 @@ export function GameBoard({ cards, onCardClick, lvl, appLoaded }) {
 
   return (
     <StyledMain>
-      <Status text={`Choose your next Pokemon! Lvl ${lvl.nr}`} />
       <StyledBoard>
-        {cards
-          ? cards.map((card) => (
-              <Card
-                key={card.id}
-                card={card}
-                onCardClick={handleCardClick}
-                animate={animate}
-              />
-            ))
-          : appLoaded && <Loading text={`Loading Lvl ${lvl.nr}`} />}
+        {cards &&
+          cards.map((card) => (
+            <Card
+              key={card.id}
+              card={card}
+              onCardClick={handleCardClick}
+              animate={animate}
+            />
+          ))}
       </StyledBoard>
     </StyledMain>
   );

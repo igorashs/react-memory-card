@@ -47,11 +47,13 @@ const LoadingModal = styled(Modal)`
   z-index: 2021;
 `;
 
-export function Loading({ text }) {
+export function Loading({ text, show }) {
   return (
-    <LoadingModal>
-      <img src={spinner} alt='spinner' />
-      {text && <p>{text}</p>}
-    </LoadingModal>
+    show && (
+      <LoadingModal>
+        <img src={spinner} alt='spinner' />
+        {text && <p>{text}</p>}
+      </LoadingModal>
+    )
   );
 }

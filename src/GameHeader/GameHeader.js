@@ -8,10 +8,7 @@ const StyledHeader = styled.header`
   flex-wrap: wrap;
   justify-content: center;
   min-height: 60px;
-  padding: 10px;
-  background-color: var(--secondary);
-  border-bottom: 3px solid var(--complimentary);
-  box-shadow: inset 0px 5px 6px var(--primary);
+  background-color: var(--primary);
 
   @media (max-width: 480px) {
     h1 {

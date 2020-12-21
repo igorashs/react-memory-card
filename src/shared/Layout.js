@@ -4,7 +4,7 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: var(--primary);
+  background-color: var(--secondary);
   color: var(--primary-text);
 `;
 

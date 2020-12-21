@@ -3,6 +3,9 @@ import logo from './eevee-logo.png';
 
 const StyledLogo = styled.div`
   width: 80px;
+  height: 80px;
+  padding: 4px;
+  min-height: 50px;
   min-width: 50px;
 `;
 
