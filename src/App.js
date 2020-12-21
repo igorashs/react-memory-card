@@ -5,6 +5,7 @@ import { GameBoard } from './GameBoard';
 import { Loading } from './shared/Loading';
 import { GameOver } from './GameOver';
 import { Status } from './shared/Status';
+import { useScore } from './hooks/useScore';
 import CardsCollection from './lib/CardsCollection';
 
 export default function App() {
@@ -13,8 +14,7 @@ export default function App() {
   const [knownCards, setKnownCards] = useState([]);
   const [cards, setCards] = useState(null);
   const [lvl, setLvl] = useState({ cardsCount: 4, nr: 1 });
-  const [score, setScore] = useState(0);
-  const [bestScore, setBestScore] = useState(0);
+  const [score, bestScore, updateScore, resetScore] = useScore();
 
   // get cards on new lvl
   useEffect(async () => {
@@ -56,19 +56,8 @@ export default function App() {
       setCards((prevCards) => CardsCollection.shuffleCards(prevCards));
 
       // update score
-      setScore((prevScore) => {
-        const score = prevScore + 1;
-
-        if (score > bestScore) {
-          setBestScore(score);
-        }
-
-        return score;
-      });
-    }
-
-    // game over
-    if (foundSameCard) {
+      updateScore(1);
+    } else {
       setIsGameOver(true);
     }
   };
@@ -77,7 +66,7 @@ export default function App() {
     setIsGameOver(false);
     setIsLoading(true);
     setKnownCards([]);
-    setScore(0);
+    resetScore();
     setCards(null);
     setLvl({ cardsCount: 4, nr: 1 });
   };
